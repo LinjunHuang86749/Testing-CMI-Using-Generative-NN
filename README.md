@@ -2,6 +2,9 @@
 
 This repository contains **code** of the numerical experiments of ICML 2025 paper [Testing Conditional Mean Independence Using Generative Neural Networks](https://arxiv.org/abs/2501.17345),[Linjun Huang](https://linjun-site.netlify.app/), [Yi Zhang](https://orcid.org/0009-0000-4049-7347), [Yun Yang](https://sites.google.com/site/yunyangstat/) and [Xiaofeng Shao](https://scholar.google.com/citations?user=Z_ZD6A4AAAAJ&hl=en).
 
+Conditional mean independence (CMI) testing is a fundamental tool for model simplification and assessing variable importance. However, existing test procedures suffer from severe performance deterioration in high dimensional setting.  We propose a new test procedure, basing on a novel CMI measure and neural networks, that has strong empirical performance in scenarios with high-dimensional covariates and response variable.  Our test can help in improving model efficiency, accuracy, and interpretability for many machine learning applications.
+
+
 ## Dependencies
 
 The following packages and versions were used in this project:
