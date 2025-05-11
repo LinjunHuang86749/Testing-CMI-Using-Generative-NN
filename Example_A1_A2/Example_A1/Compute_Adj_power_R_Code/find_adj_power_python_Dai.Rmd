@@ -1,0 +1,93 @@
+---
+title: "find_adj_power_2"
+output: html_document
+date: "2024-07-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+n <- 600
+
+ans <- read.csv(paste0('Example_A2_Dai_H0_H1_s1_d1_ans_n_',n,'_python.csv'), header = FALSE)
+ans2 <- read.csv(paste0('Example_A2_Cauchy_Dai_H0_H1_s1_d1_ans_n_',n,'_python.csv'), header = FALSE)
+```
+
+
+
+# Get Size
+DSP; DSPM
+```{r}
+result = matrix(0,1,2)
+
+result[1,1] = mean(ans[1:500,1]<qnorm(0.05))
+result[1,2] = mean(ans2[1:500,1]<0.05)
+
+
+result[1,]
+```
+# Get quantile 5%
+```{r}
+adj_size = matrix(0,1,2)
+
+adj_size[1,1] = quantile(pnorm(ans[1:500,1]), 0.05)
+adj_size[1,2] = quantile(ans2[1:500,1], 0.05)
+
+
+adj_size[1,]
+```
+# Get Size Ajusted Power for H1 S
+
+```{r}
+adj_power_s = matrix(0,1,2)
+
+adj_power_s[1,1] = mean( (pnorm(ans[1:500,2])) < adj_size[1,1] )
+adj_power_s[1,2] = mean( ans2[1:500,2] < adj_size[1,2]  )
+
+adj_power_s[1,]
+```
+
+# Get Size Ajusted Power for H1 D
+
+```{r}
+adj_power_d = matrix(0,1,2)
+
+adj_power_d[1,1] = mean( (pnorm(ans[1:500,3])) < adj_size[1,1] )
+adj_power_d[1,2] = mean( ans2[1:500,3] < adj_size[1,2]  )
+
+adj_power_d[1,]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

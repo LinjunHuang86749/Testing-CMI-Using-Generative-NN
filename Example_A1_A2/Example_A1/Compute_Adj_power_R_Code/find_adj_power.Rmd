@@ -1,0 +1,152 @@
+---
+title: "find_adj_power_2"
+output: html_document
+date: "2024-07-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+n <- 200
+
+ans <- read.csv(paste0('./size_ans_n_',n,'.csv'))
+power_s <- read.csv(paste0('./Example_A1_power_s2_ans_n_',n,'.csv'))
+power_d <- read.csv(paste0('./Example_A1_power_d2_ans_n_',n,'.csv'))
+
+ans <- ans[,2:8]
+power_s <- power_s[,2:8]
+power_d <- power_d[,2:8]
+```
+
+
+
+# Get Size
+pMIT_XGB; pMITe_XGB; pMITM_XGB; pMITeM_XGB; pcm; pcmM; vim
+```{r}
+result = matrix(0,1,7)
+
+result[1,1] = mean(ans[1:500,1]>qchisq(0.95,df=1))
+result[1,2] = mean(ans[1:500,2]>qchisq(0.95,df=1))
+result[1,3] = mean(ans[1:500,3]<0.05)
+result[1,4] = mean(ans[1:500,4]<0.05)
+result[1,5] = mean(ans[1:500,5]>qnorm(0.95))
+result[1,6] = mean(ans[1:500,6]>qnorm(0.95))
+result[1,7] = mean(ans[1:500,7]<0.05)
+
+result[1,]
+
+```
+# Get quantile 5%
+```{r}
+adj_size = matrix(0,1,7)
+
+adj_size[1,1] = quantile(1 - pchisq(ans[,1], df = 1), 0.05)
+adj_size[1,2] = quantile(1 - pchisq(ans[,2], df = 1), 0.05)
+adj_size[1,3] = quantile(ans[,3], 0.05)
+adj_size[1,4] = quantile(ans[,4], 0.05)
+adj_size[1,5] = quantile(1 - pnorm(ans[,5]), 0.05)
+adj_size[1,6] = quantile(1 - pnorm(ans[,6]), 0.05)
+adj_size[1,7] = quantile(ans[,7], 0.05)
+
+adj_size[1,]
+```
+# Get Size Ajusted Power for H1 S
+
+```{r}
+adj_power_s = matrix(0,1,7)
+
+adj_power_s[1,1] = mean( (1 - pchisq(power_s[1:500,1], df = 1)) < adj_size[1,1] )
+adj_power_s[1,2] = mean( (1 - pchisq(power_s[1:500,2], df = 1)) < adj_size[1,2] )
+adj_power_s[1,3] = mean( power_s[1:500,3] < adj_size[1,3]  )
+adj_power_s[1,4] = mean( power_s[1:500,4] < adj_size[1,4]  )
+adj_power_s[1,5] = mean( (1 - pnorm(power_s[1:500,5])) < adj_size[1,5] )
+adj_power_s[1,6] = mean( (1 - pnorm(power_s[1:500,6])) < adj_size[1,6] )
+adj_power_s[1,7] = mean( power_s[1:500,7] < adj_size[1,7]  )
+
+adj_power_s[1,]
+```
+
+# Get Size Ajusted Power for H1 D
+
+```{r}
+adj_power_d = matrix(0,1,7)
+
+adj_power_d[1,1] = mean( (1 - pchisq(power_d[1:500,1], df = 1)) < adj_size[1,1] )
+adj_power_d[1,2] = mean( (1 - pchisq(power_d[1:500,2], df = 1)) < adj_size[1,2] )
+adj_power_d[1,3] = mean( power_d[1:500,3] < adj_size[1,3]  )
+adj_power_d[1,4] = mean( power_d[1:500,4] < adj_size[1,4]  )
+adj_power_d[1,5] = mean( (1 - pnorm(power_d[1:500,5])) < adj_size[1,5] )
+adj_power_d[1,6] = mean( (1 - pnorm(power_d[1:500,6])) < adj_size[1,6] )
+adj_power_d[1,7] = mean( power_d[1:500,7] < adj_size[1,7]  )
+
+adj_power_d[1,]
+```
+
+# Get Power for H1 S
+
+```{r}
+Emp_power_s = matrix(0,1,7)
+
+Emp_power_s[1,1] = mean( (1 - pchisq(power_s[1:500,1], df = 1)) < 0.05 )
+Emp_power_s[1,2] = mean( (1 - pchisq(power_s[1:500,2], df = 1)) < 0.05 )
+Emp_power_s[1,3] = mean( power_s[1:500,3] < 0.05  )
+Emp_power_s[1,4] = mean( power_s[1:500,4] < 0.05  )
+Emp_power_s[1,5] = mean( (1 - pnorm(power_s[1:500,5])) < 0.05 )
+Emp_power_s[1,6] = mean( (1 - pnorm(power_s[1:500,6])) < 0.05 )
+Emp_power_s[1,7] = mean( power_s[1:500,7] < 0.05  )
+
+Emp_power_s[1,]
+```
+
+# Get Power for H1 D
+
+```{r}
+Emp_power_d = matrix(0,1,7)
+
+Emp_power_d[1,1] = mean( (1 - pchisq(power_d[1:500,1], df = 1)) < 0.05 )
+Emp_power_d[1,2] = mean( (1 - pchisq(power_d[1:500,2], df = 1)) < 0.05 )
+Emp_power_d[1,3] = mean( power_d[1:500,3] < 0.05  )
+Emp_power_d[1,4] = mean( power_d[1:500,4] < 0.05  )
+Emp_power_d[1,5] = mean( (1 - pnorm(power_d[1:500,5])) < 0.05 )
+Emp_power_d[1,6] = mean( (1 - pnorm(power_d[1:500,6])) < 0.05 )
+Emp_power_d[1,7] = mean( power_d[1:500,7] < 0.05  )
+
+Emp_power_d[1,]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
