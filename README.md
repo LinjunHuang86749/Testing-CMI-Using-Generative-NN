@@ -5,6 +5,12 @@ This repository contains **code** of the numerical experiments of ICML 2025 pape
 Conditional mean independence (CMI) testing is a fundamental tool for model simplification and assessing variable importance. However, existing test procedures suffer from severe performance deterioration in high dimensional setting.  We propose a new test procedure, basing on a novel CMI measure and neural networks, that has strong empirical performance in scenarios with high-dimensional covariates and response variable.  Our test can help in improving model efficiency, accuracy, and interpretability for many machine learning applications.
 
 
+## Description
+
+* Repository `Example_A1_A2` contains code used in the experiments for the **3. Simulation Results**.
+* Repository `Facial_Expression_Application` contains code used in the experiments for the **4.1. Facial expression recognition**.
+* Repository `Facial_Age_Application` contains code used in the experiments for the **4.2. Facial age estimation**.
+
 ## Dependencies
 
 The following packages and versions were used in this project:
